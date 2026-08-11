@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club Creativo | Prendas y Peluches Bordados Personalizados</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- FontAwesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tipografía Google Fonts (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-500 selection:text-white">
+
+    <!-- ==========================================
+         1. NAVEGACIÓN Y LOGO REAL
+    =========================================== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-brand-100">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="flex items-center gap-2 group">
+                        <div class="flex flex-col">
+                            <span class="text-3xl font-extrabold tracking-tight text-purple-800 leading-none" style="font-family: serif;">Club</span>
+                            <span class="text-2xl font-bold text-purple-700 tracking-wider leading-none" style="font-family: serif;">Creativo</span>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Menú Escritorio -->
+                <nav class="hidden md:flex items-center space-x-6 font-medium text-slate-600">
+                    <a href="#inicio" class="hover:text-brand-600 transition-colors">Inicio</a>
+                    <a href="#categorias" class="hover:text-brand-600 transition-colors">Categorías</a>
+                    <a href="#galeria" class="hover:text-brand-600 transition-colors">Catálogo</a>
+                    <a href="#talles" class="hover:text-brand-600 transition-colors">Guía de Talles</a>
+                    <a href="#reservar" class="bg-brand-600 text-white px-5 py-2.5 rounded-full font-semibold shadow-md hover:bg-brand-700 hover:shadow-lg transition-all">
+                        <i class="fa-brands fa-whatsapp mr-2"></i>Hacer Pedido
+                    </a>
+                </nav>
+
+                <!-- Botón Menú Hamburguesa -->
+                <div class="flex md:hidden">
+                    <button id="mobile-menu-button" type="button" class="text-slate-700 hover:text-brand-600 focus:outline-none p-2 rounded-lg" aria-label="Abrir menú">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menú Desplegable Móvil -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-6 space-y-3 shadow-xl">
+            <a href="#inicio" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Inicio</a>
+            <a href="#categorias" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Categorías</a>
+            <a href="#galeria" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Catálogo</a>
+            <a href="#talles" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-brand-50 hover:text-brand-600">Guía de Talles</a>
+            <a href="#reservar" class="block text-center bg-brand-600 text-white px-4 py-3 rounded-xl font-semibold shadow-md hover:bg-brand-700">
+                <i class="fa-brands fa-whatsapp mr-2"></i>Hacer Pedido
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 py-12">
+
+        <!-- ==========================================
+             2. HERO SECTION
+        =========================================== -->
+        <section id="inicio" class="text-center pt-8 md:pt-12">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-100 text-brand-800 text-sm font-semibold mb-6 animate-bounce">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Bordados 100% Personalizados en Paraguay
+            </div>
+
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+                Llevamos tus ideas al hilo en <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-600">prendas y peluches</span>
+            </h1>
+
+            <p class="text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto mb-8 font-normal leading-relaxed">
+                Transformamos fotos, momentos de graduación, motivos patrios y diseños exclusivos en bordados de alta calidad.
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#categorias" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-brand-600 text-white font-bold rounded-2xl shadow-xl shadow-brand-500/25 hover:bg-brand-700 hover:scale-105 transition-all">
+                    <i class="fa-solid fa-layer-group mr-2"></i> Ver Categorías
+                </a>
+                <a href="#reservar" class="w-full sm:w-auto inline-flex items-center justify-center px-8 py-4 bg-white text-slate-700 border-2 border-slate-200 font-bold rounded-2xl hover:border-brand-500 hover:text-brand-600 transition-all">
+                    Personalizar mi Prenda
+                </a>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             3. TARJETAS DE CATEGORÍA (BOTONES AL CATÁLOGO)
+        =========================================== -->
+        <section id="categorias" class="space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Explora por Categoría</h2>
+                <p class="text-slate-500 mt-2">Haz clic en una categoría para ver todos los productos disponibles</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <!-- Tarjeta Remeras -->
+                <div onclick="filtrarCategoria('remeras')" class="cursor-pointer bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-100 transition-all transform hover:-translate-y-1 group flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden h-80 bg-slate-100">
+                            <img src="foto1.jpg" alt="Remeras Bordadas" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                                Remeras
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 text-xl group-hover:text-brand-600 transition-colors">Remera Bordada</h3>
+                            <p class="text-slate-500 text-sm mt-1">Diseños ilustrativos en hilo de alta precisión.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button class="w-full text-center py-3 bg-brand-50 text-brand-700 group-hover:bg-brand-600 group-hover:text-white font-bold rounded-xl transition-all block text-sm shadow-sm">
+                            Ver catálogo de Remeras <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Hoodies -->
+                <div onclick="filtrarCategoria('hoodies')" class="cursor-pointer bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-100 transition-all transform hover:-translate-y-1 group flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden h-80 bg-slate-100">
+                            <img src="foto3.jpg" alt="Hoodies y Buzos" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                                Hoodies
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 text-xl group-hover:text-brand-600 transition-colors">Hoodies </h3>
+                            <p class="text-slate-500 text-sm mt-1">Buzo con bordados personalizados en espalda y pecho.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button class="w-full text-center py-3 bg-brand-50 text-brand-700 group-hover:bg-brand-600 group-hover:text-white font-bold rounded-xl transition-all block text-sm shadow-sm">
+                            Ver catálogo de Hoodies <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Tarjeta Peluches -->
+                <div onclick="filtrarCategoria('peluches')" class="cursor-pointer bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl border border-slate-100 transition-all transform hover:-translate-y-1 group flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden h-80 bg-slate-100">
+                            <img src="foto5.jpg" alt="Peluches Personalizados" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                            <span class="absolute top-4 left-4 bg-brand-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">
+                                Peluches
+                            </span>
+                        </div>
+                        <div class="p-5">
+                            <h3 class="font-bold text-slate-900 text-xl group-hover:text-brand-600 transition-colors">Peluche Personalizado</h3>
+                            <p class="text-slate-500 text-sm mt-1">Muñeco artesanal réplica detallada.</p>
+                        </div>
+                    </div>
+                    <div class="p-5 pt-0">
+                        <button class="w-full text-center py-3 bg-brand-50 text-brand-700 group-hover:bg-brand-600 group-hover:text-white font-bold rounded-xl transition-all block text-sm shadow-sm">
+                            Ver catálogo de Peluches <i class="fa-solid fa-arrow-right ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ==========================================
+             4. CATÁLOGO COMPLETO / FILTRADO DINÁMICO
+        =========================================== -->
+        <section id="galeria" class="space-y-8 pt-4">
+            <div class="text-center">
+                <h2 id="titulo-catalogo" class="text-3xl font-bold text-slate-900">Catálogo Completo</h2>
+                <p class="text-slate-500 mt-2">Explora los modelos disponibles para encargar o inspirarte</p>
+            </div>
+
+            <!-- Botones de filtro rápido -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4">
+                <button id="btn-cat-todas" onclick="filtrarCategoria('todas')" class="px-5 py-2 rounded-full font-bold text-sm bg-brand-600 text-white transition-all shadow-md">
+                    Todos
+                </button>
+                <button id="btn-cat-remeras" onclick="filtrarCategoria('remeras')" class="px-5 py-2 rounded-full font-bold text-sm bg-slate-100 text-slate-600 hover:bg-brand-50 hover:text-brand-600 transition-all">
+                    Remeras
+                </button>
+                <button id="btn-cat-hoodies" onclick="filtrarCategoria('hoodies')" class="px-5 py-2 rounded-full font-bold text-sm bg-slate-100 text-slate-600 hover:bg-brand-50 hover:text-brand-600 transition-all">
+                    Hoodies
+                </button>
+                <button id="btn-cat-peluches" onclick="filtrarCategoria('peluches')" class="px-5 py-2 rounded-full font-bold text-sm bg-slate-100 text-slate-600 hover:bg-brand-50 hover:text-brand-600 transition-all">
+                    Peluches
+                </button>
+            </div>
+
+            <!-- Grid del Catálogo donde se renderizan los productos -->
+            <div id="grid-catalogo" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            </div>
+        </section>
+
+        <!-- ==========================================
+             5. GUÍA DE TALLES
+        =========================================== -->
+        <section id="talles" class="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-100 space-y-8">
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-slate-900">Guía de Talles y Medidas</h2>
+                <p class="text-slate-500 mt-2">Consulta las medidas para asegurar tu pedido</p>
+            </div>
+
+            <div class="flex justify-center gap-4">
+                <button id="btn-talles-remeras" onclick="cambiarTablaTalles('remeras')" class="px-6 py-2.5 rounded-xl font-bold bg-brand-600 text-white transition-all shadow-md">
+                    Remeras
+                </button>
+                <button id="btn-talles-hoodies" onclick="cambiarTablaTalles('hoodies')" class="px-6 py-2.5 rounded-xl font-bold bg-slate-100 text-slate-600 hover:bg-brand-50 transition-all">
+                    Hoodies / Buzos
+                </button>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-sm sm:text-base">
+                    <thead>
+                        <tr class="bg-brand-50 text-brand-900 border-b border-brand-100">
+                            <th class="p-4 font-bold rounded-l-xl">Talle</th>
+                            <th class="p-4 font-bold">Ancho (Pecho)</th>
+                            <th class="p-4 font-bold">Largo Total</th>
+                            <th class="p-4 font-bold rounded-r-xl">Recomendación</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cuerpo-tabla-talles" class="divide-y divide-slate-100 text-slate-700">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             6. CARACTERÍSTICAS
+        =========================================== -->
+        <section id="caracteristicas" class="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-slate-100">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-slate-900">¿Por qué crear tu estilo con nosotros?</h2>
+                <p class="text-slate-500 mt-2">Calidad artesanal y tecnología de bordado en cada prenda</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="w-16 h-16 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Diseños a tu Medida</h3>
+                    <p class="text-slate-600 text-sm">Convertimos tus fotos o ideas en matrices de bordado limpias.</p>
+                </div>
+
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="w-16 h-16 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Hilos de Alta Durabilidad</h3>
+                    <p class="text-slate-600 text-sm">Bordados resistentes a lavados constantes sin desteñir.</p>
+                </div>
+
+                <div class="flex flex-col items-center text-center p-4">
+                    <div class="w-16 h-16 rounded-2xl bg-brand-100 text-brand-600 flex items-center justify-center text-2xl mb-4">
+                        <i class="fa-solid fa-truck-fast"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 mb-2">Envíos a Todo el País</h3>
+                    <p class="text-slate-600 text-sm">Recibe tus pedidos de forma rápida en cualquier punto del país.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==========================================
+             7. FORMULARIO DE RESERVA
+        =========================================== -->
+        <section id="reservar" class="bg-gradient-to-br from-brand-900 to-indigo-900 text-white rounded-3xl p-8 sm:p-12 shadow-2xl">
+            <div class="max-w-2xl mx-auto text-center space-y-6">
+                <h2 class="text-3xl sm:text-4xl font-extrabold">Haz tu pedido o cotiza tu diseño</h2>
+                <p class="text-brand-100 text-base">Completa el formulario para enviar los detalles directo a nuestro WhatsApp.</p>
+
+                <form id="reserva-form" onsubmit="enviarWhatsApp(event)" class="space-y-4 text-left bg-white/10 p-6 rounded-2xl backdrop-blur-md">
+                    <div>
+                        <label class="block text-sm font-medium mb-1 text-brand-100">¿Qué producto deseas?</label>
+                        <select id="tipo-producto" class="w-full px-4 py-3 rounded-xl bg-white text-slate-800 font-medium focus:ring-2 focus:ring-brand-500 outline-none">
+                            <option value="Remera Bordada">Remera Bordada</option>
+                            <option value="Hoodie Bordada">Hoodie / Buzo Bordado</option>
+                            <option value="Peluche Personalizado">Peluche Personalizado</option>
+                            <option value="Otro / Combo">Combo o Proyecto Especial</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1 text-brand-100">Talle preferido</label>
+                        <select id="talle-seleccionado" class="w-full px-4 py-3 rounded-xl bg-white text-slate-800 font-medium focus:ring-2 focus:ring-brand-500 outline-none">
+                            <option value="S">Talle S</option>
+                            <option value="M" selected>Talle M</option>
+                            <option value="L">Talle L</option>
+                            <option value="XL">Talle XL</option>
+                            <option value="No Aplica (Peluche)">No aplica (Peluches)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1 text-brand-100">Describe tu idea</label>
+                        <textarea id="descripcion-idea" rows="3" required placeholder="Ejemplo: Quiero un hoodie negro con el bordado de graduación..." class="w-full px-4 py-3 rounded-xl bg-white text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium mb-1 text-brand-100">Tu Nombre</label>
+                        <input type="text" id="nombre-cliente" required placeholder="Ingresa tu nombre completo" class="w-full px-4 py-3 rounded-xl bg-white text-slate-800 focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+
+                    <button type="submit" class="w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-xl text-lg shadow-lg transition-all flex items-center justify-center gap-2">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i> Reservar y Cotizar por WhatsApp
+                    </button>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-slate-200 mt-20">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl font-bold text-purple-900" style="font-family: serif;">Club Creativo</span>
+                </div>
+
+                <div class="flex space-x-6 text-slate-500 text-xl">
+                    <a href="https://www.instagram.com/clubcreativopy/" target="_blank" class="hover:text-brand-600 transition-colors" aria-label="Instagram">
+                        <i class="fa-brands fa-instagram text-2xl"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@clubcreativopy" target="_blank" class="hover:text-brand-600 transition-colors" aria-label="TikTok">
+                        <i class="fa-brands fa-tiktok text-2xl"></i>
+                    </a>
+                    <a href="https://www.facebook.com/profile.php?id=61566011520795" target="_blank" class="hover:text-brand-600 transition-colors" aria-label="Facebook">
+                        <i class="fa-brands fa-facebook text-2xl"></i>
+                    </a>
+                </div>
+
+                <p class="text-slate-500 text-sm text-center md:text-right">
+                    © <span id="year"></span> Club Creativo. Todos los derechos reservados.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <!-- ==========================================
+         JAVASCRIPT COMPLETO Y UNIFICADO
+    =========================================== -->
+    <script>
+        // 1. Conexión con Supabase
+        const SUPABASE_URL = 'https://vfrnuhqtxabuitshzqmw.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_Er4MAkpCzjPgyZIjAVwrPg_OTuPQuvD';
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let productosGlobales = [];
+
+        // 2. Obtener productos de la base de datos
+        async function obtenerProductos() {
+            try {
+                const { data, error } = await supabaseClient
+                    .from('productos')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                productosGlobales = data || [];
+                renderizarProductos(productosGlobales);
+            } catch (error) {
+                console.error('Error al cargar de Supabase:', error.message);
+                renderizarProductos([]);
+            }
+        }
+
+        // 3. Inicialización al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            obtenerProductos();
+            cambiarTablaTalles('remeras');
+            const yearEl = document.getElementById('year');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
+        });
+
+        // 4. Menú desplegable para móviles
+        const menuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (menuButton) {
+            menuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // 5. Lógica de la Guía de Talles
+        const datosTalles = {
+            remeras: [
+                { talle: 'S', ancho: '48 cm', largo: '68 cm', desc: 'Corte ajustado' },
+                { talle: 'M', ancho: '52 cm', largo: '71 cm', desc: 'Corte estándar' },
+                { talle: 'L', ancho: '56 cm', largo: '74 cm', desc: 'Suelto y cómodo' },
+                { talle: 'XL', ancho: '60 cm', largo: '77 cm', desc: 'Holgado' },
+            ],
+            hoodies: [
+                { talle: 'S', ancho: '52 cm', largo: '66 cm', desc: 'Contextura chica' },
+                { talle: 'M', ancho: '56 cm', largo: '70 cm', desc: 'Talle intermedio' },
+                { talle: 'L', ancho: '60 cm', largo: '73 cm', desc: 'Cómodo para abrigar' },
+                { talle: 'XL', ancho: '64 cm', largo: '76 cm', desc: 'Corte amplio oversize' },
+            ]
+        };
+
+        function cambiarTablaTalles(tipo) {
+            const cuerpo = document.getElementById('cuerpo-tabla-talles');
+            const btnRemeras = document.getElementById('btn-talles-remeras');
+            const btnHoodies = document.getElementById('btn-talles-hoodies');
+
+            if (!cuerpo) return;
+
+            if (tipo === 'remeras') {
+                btnRemeras.className = 'px-6 py-2.5 rounded-xl font-bold bg-brand-600 text-white transition-all shadow-md';
+                btnHoodies.className = 'px-6 py-2.5 rounded-xl font-bold bg-slate-100 text-slate-600 hover:bg-brand-50 transition-all';
+            } else {
+                btnHoodies.className = 'px-6 py-2.5 rounded-xl font-bold bg-brand-600 text-white transition-all shadow-md';
+                btnRemeras.className = 'px-6 py-2.5 rounded-xl font-bold bg-slate-100 text-slate-600 hover:bg-brand-50 transition-all';
+            }
+
+            cuerpo.innerHTML = datosTalles[tipo].map(row => `
+                <tr class="hover:bg-slate-50 transition-colors">
+                    <td class="p-4 font-bold text-brand-700">${row.talle}</td>
+                    <td class="p-4">${row.ancho}</td>
+                    <td class="p-4">${row.largo}</td>
+                    <td class="p-4 text-slate-500">${row.desc}</td>
+                </tr>
+            `).join('');
+        }
+
+        // 6. Enviar datos a WhatsApp
+        async function enviarWhatsApp(event) {
+            event.preventDefault();
+            const cliente = document.getElementById('nombre-cliente').value;
+            const producto = document.getElementById('tipo-producto').value;
+            const talle = document.getElementById('talle-seleccionado').value;
+            const descripcion = document.getElementById('descripcion-idea').value;
+
+            const numeroTelefono = "595971323984"; 
+            const mensaje = `¡Hola Club Creativo! 🎨%0AMi nombre es *${encodeURIComponent(cliente)}* y quiero cotizar:%0A%0A• *Producto:* ${encodeURIComponent(producto)}%0A• *Talle:* ${encodeURIComponent(talle)}%0A• *Idea de diseño:* ${encodeURIComponent(descripcion)}`;
+            window.open(`https://wa.me/${numeroTelefono}?text=${mensaje}`, '_blank');
+        }
+
+        // 7. Seleccionar producto automáticamente en el formulario
+        function seleccionarProductoFormulario(nombreProducto) {
+            const select = document.getElementById('tipo-producto');
+            if (!select) return;
+            for (let option of select.options) {
+                if (nombreProducto.toLowerCase().includes(option.value.toLowerCase())) {
+                    option.selected = true;
+                    break;
+                }
+            }
+        }
+
+        // 8. Carrusel de fotos en cada tarjeta
+        function cambiarFotoTarjeta(idProd, paso) {
+            const imgEl = document.getElementById(`img-${idProd}`);
+            if (!imgEl) return;
+            
+            let fotos = [];
+            try {
+                fotos = JSON.parse(decodeURIComponent(imgEl.dataset.fotos));
+            } catch(e) {
+                console.error("Error al leer las imágenes", e);
+                return;
+            }
+
+            let idxActual = parseInt(imgEl.dataset.index) || 0;
+            idxActual = (idxActual + paso + fotos.length) % fotos.length;
+            
+            imgEl.src = fotos[idxActual];
+            imgEl.dataset.index = idxActual;
+
+            const dots = document.querySelectorAll(`.dot-${idProd}`);
+            dots.forEach((dot, i) => {
+                dot.className = `dot-${idProd} w-2 h-2 rounded-full transition-all ${i === idxActual ? 'bg-white scale-125' : 'bg-white/50'}`;
+            });
+        }
+
+        // 9. Filtrado por categorías y cambio de título
+        function filtrarCategoria(categoria) {
+            const categoriasValidas = ['todas', 'remeras', 'hoodies', 'peluches'];
+            
+            categoriasValidas.forEach(cat => {
+                const btn = document.getElementById(`btn-cat-${cat}`);
+                if (btn) {
+                    if (cat === categoria) {
+                        btn.className = 'px-5 py-2 rounded-full font-bold text-sm bg-brand-600 text-white transition-all shadow-md';
+                    } else {
+                        btn.className = 'px-5 py-2 rounded-full font-bold text-sm bg-slate-100 text-slate-600 hover:bg-brand-50 hover:text-brand-600 transition-all';
+                    }
+                }
+            });
+
+            const titulo = document.getElementById('titulo-catalogo');
+            if (categoria === 'todas') {
+                if (titulo) titulo.textContent = 'Catálogo Completo';
+                renderizarProductos(productosGlobales);
+            } else {
+                const nombresMap = {
+                    remeras: 'Remeras Bordadas',
+                    hoodies: 'Hoodies y Buzos',
+                    peluches: 'Peluches Personalizados'
+                };
+                if (titulo) titulo.textContent = `Catálogo de ${nombresMap[categoria] || categoria}`;
+                const filtrados = productosGlobales.filter(p => p.categoria && p.categoria.toLowerCase() === categoria.toLowerCase());
+                renderizarProductos(filtrados);
+            }
+
+            const galeriaSec = document.getElementById('galeria');
+            if (galeriaSec) galeriaSec.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 10. Renderizar la lista de productos en el HTML
+        function renderizarProductos(lista) {
+            const grid = document.getElementById('grid-catalogo');
+            if (!grid) return;
+
+            if (!lista || lista.length === 0) {
+                grid.innerHTML = `<p class="col-span-full text-center text-slate-500 py-12 font-medium">No se encontraron productos en esta categoría.</p>`;
+                return;
+            }
+
+            grid.innerHTML = lista.map((p, idx) => {
+                const idUnico = p.id || `prod-${idx}`;
+                
+                // Formatear lista de fotos
+                let fotos = [];
+                if (Array.isArray(p.imagenes)) fotos = p.imagenes;
+                else if (Array.isArray(p.imagen)) fotos = p.imagen;
+                else if (p.imagen) fotos = [p.imagen];
+                else if (p.imagenes) fotos = [p.imagenes];
+                else fotos = ['foto1.jpg'];
+
+                const tieneVariasFotos = fotos.length > 1;
+                const fotosJSON = encodeURIComponent(JSON.stringify(fotos));
+
+                return `
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md border border-slate-100 transition-all flex flex-col justify-between">
+                    <div>
+                        <div class="relative overflow-hidden h-64 bg-slate-100 group">
+                            <!-- Imagen Principal -->
+                            <img id="img-${idUnico}" 
+                                 src="${fotos[0]}" 
+                                 data-fotos="${fotosJSON}" 
+                                 data-index="0" 
+                                 alt="${p.nombre}" 
+                                 class="w-full h-full object-cover transition-all duration-300">
+
+                            <!-- Etiqueta Categoría -->
+                            <span class="absolute top-2 left-2 bg-brand-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm capitalize z-10">
+                                ${p.categoria || 'Bordados'}
+                            </span>
+
+                            ${tieneVariasFotos ? `
+                                <!-- Flechas y Puntos del Carrusel -->
+                                <button type="button" onclick="cambiarFotoTarjeta('${idUnico}', -1)" aria-label="Foto anterior" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center z-10">
+                                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                                </button>
+                                <button type="button" onclick="cambiarFotoTarjeta('${idUnico}', 1)" aria-label="Siguiente foto" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white w-7 h-7 rounded-full flex items-center justify-center z-10">
+                                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                                </button>
+
+                                <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
+                                    ${fotos.map((_, i) => `
+                                        <span class="dot-${idUnico} w-2 h-2 rounded-full transition-all ${i === 0 ? 'bg-white scale-125' : 'bg-white/50'}"></span>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <div class="p-3">
+                            <h3 class="font-bold text-slate-900 text-sm truncate">${p.nombre}</h3>
+                            <p class="text-slate-500 text-xs mt-1 line-clamp-2">${p.descripcion || ''}</p>
+                        </div>
+                    </div>
+
+                    <div class="p-3 pt-0">
+                        <a href="#reservar" onclick="seleccionarProductoFormulario('${p.nombre}')" class="w-full text-center py-2 bg-brand-50 text-brand-700 font-bold rounded-lg hover:bg-brand-600 hover:text-white transition-colors block text-xs">
+                            Cotizar este modelo
+                        </a>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+    </script>
+</body>
+</html>
